@@ -88,8 +88,8 @@ contract BettingGame {
     }
 
     /* function to reveal random number, called by owner of proposed bet*/
-    function reveal(uint _random) external {
-        uint _commitment = uint256(keccak256(abi.encodePacked(_random)));
+    function reveal(uint _commitment, uint _random) external {
+        //uint _commitment = uint256(keccak256(abi.encodePacked(_random)));
         address payable side_A = payable(msg.sender); //make the address able to receive eth
         address payable side_B = payable(acceptedBet[_commitment].sideB);
 
@@ -100,14 +100,14 @@ contract BettingGame {
         //valide the owner of the bet
         require(
             proposedBet[_commitment].sideA == msg.sender,
-            "This is the bet you placed"
+            "This is not the bet you placed!"
         );
 
         //validate wheather the bet has already been accepted
-        require(
-            !proposedBet[_commitment].accepted,
-            "Bet has not been accepted yet!!"
-        );
+        // require(
+        //     proposedBet[_commitment].accepted == true,
+        //     "Bet has not been accepted yet!!"
+        // );
 
         // Pay and emit an event
         if (_agreedRandom % 2 == 0) {   //any number xor itself is zero

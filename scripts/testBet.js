@@ -4,10 +4,10 @@ async function main() {
 
   const Contract = await hre.ethers.getContractFactory("BettingGame");
   const contract = await Contract.attach(
-    "0x2422C589F78695Be798e4BfEdBb2469a55be6a19" // The deployed contract address
+    "0xCf41Ee6e2446313Cc2acbf7D67B387eC11B18C22" // The deployed contract address
 );
 
-  await contract.proposeBet(5, {value: ethers.utils.parseEther("1"), gasLimit: 40000});
+  const tx = await contract.proposeBet(99, {value: ethers.utils.parseUnits("0.0004", "mwei")});
 
   
   const receipt = await tx.wait();
